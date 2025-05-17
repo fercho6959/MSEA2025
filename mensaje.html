@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mensaje</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/estilos.css">
+    <style>
+        @font-face {
+            font-family: 'HarryP';
+            src: url('HARRYP__.TTF') format('truetype');
+        }
+
+        body {
+            background-image: url('20.jpg');
+            background-size: 100% 100%;
+            background-position: center center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        @keyframes magicalParticles {
+            0% { transform: translateY(0); opacity: 0; }
+            50% { transform: translateY(-10px); opacity: 1; }
+            100% { transform: translateY(0); opacity: 0; }
+        }
+
+        .particula {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background-color: rgba(14, 31, 179, 0.7);
+            border-radius: 50%;
+            animation: magicalParticles 4s infinite;
+        }
+
+        .particula:nth-child(odd) {
+            animation-duration: 5s;
+            animation-delay: 1s;
+        }
+
+        .particula:nth-child(even) {
+            animation-duration: 6s;
+            animation-delay: 2s;
+        }
+
+        .particula:nth-child(3) {
+            animation-duration: 3s;
+            animation-delay: 0s;
+        }
+
+        .particula:nth-child(4) {
+            animation-duration: 5s;
+            animation-delay: 3s;
+        }
+
+        .mensaje-error {
+            text-align: center;
+            padding: 30px;
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            max-width: 80%;
+            width: 500px;
+            font-family: 'HarryP', Arial, sans-serif;
+            border: 5px solid #4a6e9e;
+            box-shadow: 0 0 15px 5px rgba(0, 0, 255, 0.6);
+            opacity: 0;
+            filter: blur(5px);
+            animation: fadeInClear 3s forwards;
+        }
+
+        @keyframes fadeInClear {
+            0% { opacity: 0; filter: blur(5px); }
+            100% { opacity: 1; filter: blur(0); }
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.7), 0 0 25px rgba(255, 223, 0, 1), 0 0 5px rgba(255, 223, 0, 1);
+            color: white;
+            animation: slideIn 1s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(0); }
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            line-height: 1.6;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.7), 0 0 25px rgba(255, 223, 0, 1), 0 0 5px rgba(255, 223, 0, 1);
+            color: white;
+            animation: fadeInText 2s ease-out;
+        }
+
+        @keyframes fadeInText {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .btn-warning {
+            color: white;
+            background-color: transparent;
+            border: 3px solid black;
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            padding: 12px 20px;
+            font-size: 1.2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.7);
+            animation: pulse 2s infinite;
+        }
+
+        .btn-warning:hover {
+            background-color: transparent;
+            border: 3px solid black;
+            box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.7);
+            transform: none;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.2rem; }
+            .mensaje-error { padding: 20px; width: 90%; }
+            .btn-warning { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="mensaje-error">
+        <h1>Mishel, un nombre que brilla con la suavidad de un hechizo de amor eterno</h1>
+        <h1>Reflejando la magia única de su corazón, su dulzura inigualable y una personalidad que cautiva a todos, desde los pasillos de Hogwarts hasta las escuelas mágicas más lejanas.</h1>
+    </div>
+
+    <!-- Botón Regresar -->
+    <a href="index.html" class="btn-warning">Regresar</a>
+
+    <!-- Partículas -->
+    <div class="particula" style="top: 20%; left: 10%;"></div>
+    <div class="particula" style="top: 40%; left: 30%;"></div>
+    <div class="particula" style="top: 60%; left: 50%;"></div>
+    <div class="particula" style="top: 80%; left: 70%;"></div>
+    <div class="particula" style="top: 30%; left: 90%;"></div>
+</body>
+</html>
