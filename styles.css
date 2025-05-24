@@ -1,0 +1,501 @@
+@font-face {
+  font-family: 'HarryP';
+  src: url('HARRYP__.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100vw;
+  overflow-x: auto; /* permitir scroll horizontal si es necesario */
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+body {
+  min-height: 100vh;
+  background-color: #1c1c7c;
+  background-image: url('harry_potter_decorado.png');
+  background-size: cover;
+  background-position: center;
+  filter: brightness(1.1) contrast(1.3);
+  font-family: 'HarryP', cursive, Arial, sans-serif;
+  color: #0a0901;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow-y: auto; /* scroll vertical si es necesario */
+}
+
+.header-container {
+  width: 100%;
+  height: clamp(15vh, 25vh, 30vh);
+  background-color: rgba(0, 0, 0, 0.7);
+  background-image: url('20.png');
+  background-size: 100% 100%; /* fuerza a que se estire en ambos ejes */
+  background-repeat: no-repeat;
+  background-position: center;
+  flex-shrink: 0;
+}
+
+.main-container {
+  display: flex;
+  flex: 1;
+  box-sizing: border-box;
+  height: calc(100vh - 250px);
+  width: 100%;
+  min-width: 320px;
+  overflow-x: auto; /* scroll horizontal si el contenido es mayor */
+  overflow-y: hidden;
+}
+
+.left-container {
+  flex: 0 0 clamp(120px, 22vw, 260px); /* ancho adaptable */
+  min-width: 100px;
+  max-width: 280px;
+  padding: clamp(10px, 2vw, 20px);
+  background-image: url('21.jpg');
+  background-size: cover;
+  background-position: center;
+  border-radius: 1vw;
+  box-shadow: 0 0.25vw 0.375vw rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.right-container {
+  flex: 1 1 auto;
+  padding: 2vw;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5vw;
+  background-image: url('22.png');
+  background-size: cover;
+  background-position: center;
+  border-radius: 1vw;
+  box-shadow: 0 0.25vw 0.375vw rgba(0, 0, 0, 0.5);
+  border-top: 0.25vw solid white;
+  border-left: 0.25vw solid white;
+  overflow: hidden;
+  min-width: 300px;
+}
+
+.top-right {
+  height: auto;           /* altura según el contenido */
+  max-height: none;       /* quitar límite para que se ajuste */
+  overflow-x: auto;       /* solo scroll horizontal si es necesario */
+  overflow-y: hidden;     /* ocultar scroll vertical */
+  display: flex;
+  align-items: center;    /* centra miniaturas verticalmente */
+  gap: 1vw;
+  padding: 0.5vw 0;       /* algo de espacio arriba y abajo */
+}
+
+.top-right .image-container {
+  display: flex;
+  gap: 1vw;
+  flex-wrap: nowrap;
+}
+
+.top-right img,
+.top-right video {
+  width: 5vw;          /* ancho proporcional al viewport */
+  height: 5vw;         /* alto igual que el ancho para que sean cuadrados */
+  max-width: 90px;     /* máximo ancho para no crecer demasiado en pantallas grandes */
+  max-height: 90px;    /* máximo alto igual */
+  object-fit: cover;   /* recortar para llenar */
+  border-radius: 0.5rem; /* esquinas redondeadas */
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+  flex-shrink: 0;
+  box-shadow: 0 0.5vw 1.125vw rgba(0, 0, 0, 0.4);
+  border: 0.1875vw solid rgba(21, 5, 243, 0.945);
+  background: linear-gradient(45deg, rgba(68, 124, 245, 0.8), rgba(33, 10, 243, 0.8));
+  filter: brightness(1.1);
+  max-width: 100%;
+}
+
+.top-right img:hover,
+.top-right video:hover {
+  transform: scale(1.1) perspective(600px) rotateY(10deg) translateZ(10px);
+  box-shadow: 0 0.75vw 1.5vw rgba(0, 0, 0, 0.6);
+  filter: brightness(1.2) blur(3px);
+}
+
+
+/* Flechas visibles y posicionadas dentro de .top-right */
+
+.arrow-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  padding: 0.5rem;
+  cursor: pointer;
+  border-radius: 50%;
+  z-index: 10;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arrow-left {
+  left: 0.25rem;
+}
+
+.arrow-right {
+  right: 0.25rem;
+}
+
+
+.bottom-right {
+  padding: 1vw;
+  background-color: transparent;
+  border-radius: 0.5vw;
+  height: 31.25vw; /* aprox 500px si base 16px */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0.9375vw 1.875vw rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.large-image,
+.bottom-right video {
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  border-radius: 1vw;
+  box-shadow: 0 0 2.5vw rgba(0, 0, 0, 0.7);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.large-image:hover,
+.bottom-right video:hover {
+  transform: scale(1.05) rotate(5deg);
+  box-shadow: 0 1.25vw 2.5vw rgba(0, 0, 0, 0.6);
+}
+
+.magic-btn {
+  background: rgba(10, 13, 231, 0.6);
+  border: none;
+  border-radius: 1vw;
+  padding: 1.25vw 2.5vw;
+  font-size: 2rem;
+  color: #fff;
+  cursor: pointer;
+  text-shadow: 0 0 0.5vw #000;
+  transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+  font-family: 'HarryP', cursive, Arial, sans-serif;
+  box-shadow: 0 0.625vw 1.25vw rgba(0, 0, 0, 0.6);
+  user-select: none;
+  max-width: 100%;
+  white-space: nowrap;
+}
+
+.magic-btn:hover {
+  transform: scale(1.1);
+  background: rgba(11, 7, 236, 0.8);
+  box-shadow: 0 0.9375vw 1.875vw rgba(0, 0, 0, 0.7);
+}
+
+.start-btn {
+  position: fixed;
+  bottom: 1.25vw;
+  right: 1.25vw;
+  background: rgba(0, 0, 0, 0.3);
+  color: #f5f5f3;
+  padding: 0.625vw 1.25vw;
+  font-size: 1.5rem;
+  border-radius: 1.25vw;
+  text-decoration: none;
+  cursor: pointer;
+  z-index: 999;
+  border: none;
+  user-select: none;
+  max-width: 100%;
+  white-space: nowrap;
+}
+
+.start-btn:hover {
+  background: rgba(8, 23, 228, 0.6);
+  transform: scale(1.1);
+}
+
+.audio-container {
+  position: fixed;
+  bottom: 1.25vw;
+  left: 1.25vw;
+  z-index: 999;
+  user-select: none;
+}
+
+.audio-icon {
+  font-size: 3vw;
+  max-font-size: 30px;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.audio-icon:hover {
+  transform: scale(1.2);
+  color: rgba(247, 212, 17, 1);
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  user-select: none;
+}
+
+.menu-btn {
+  background: linear-gradient(135deg, #2c2cf0, #7a7afc);
+  color: #fff;
+  font-size: clamp(0.9rem, 2vw, 1.2rem);
+  padding: clamp(6px, 1vw, 12px) clamp(10px, 2vw, 18px);
+  cursor: pointer;
+  border-radius: 0.75rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  width: fit-content;
+  max-width: 100%;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  user-select: none;
+}
+
+.menu-btn:hover {
+  background: linear-gradient(135deg, #1a1ad6, #6464fa);
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: transparent;  /* Fondo totalmente transparente */
+  min-width: 10rem;
+  padding: 0.75rem 1rem;
+  z-index: 1;
+  border-radius: 0.3125rem;
+  min-width: 160px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  flex-direction: column;
+  z-index: 999;
+}
+
+.dropdown:hover .dropdown-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-content a {
+  background-color: rgba(173, 216, 230, 0.15); /* celeste casi transparente */
+  margin-bottom: 0.1rem; /* espacio entre opciones */
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  color: rgb(77, 241, 12); /* o el color que prefieras */
+  font-size: clamp(1.2rem, 3vw, 1.6rem); 
+  text-decoration: none;
+  display: block;
+  user-select: none;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown-content a:last-child {
+  margin-bottom: 0; /* quitar margen en la última opción */
+}
+
+.dropdown-content a:hover {
+  background-color: rgba(6, 181, 240, 0.589); /* fondo un poco más visible al pasar el mouse */
+  color: #2e0cee; /* cambio de color al hover para mejor contraste */
+}
+
+
+
+.password-form-inline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1vw;
+  font-size: clamp(1.5rem, 2vw, 2.5rem); /* Tamaño de letra flexible */
+  font-family: 'HarryP', cursive, Arial, sans-serif;
+  width: 90vw;            /* Ocupa el 90% del ancho de la pantalla */
+  max-width: 400px;       /* Máximo ancho razonable */
+  min-width: 280px;       /* Mínimo ancho para no ser muy pequeño */
+  margin: 0 auto;
+  box-sizing: border-box; /* Para que padding y border no afecten el ancho */
+  padding: 1rem;     
+}
+
+.password-input {
+  font-size: clamp(1.2rem, 1.8vw, 2rem); /* Tamaño de letra responsive */
+  padding: 1vw;
+  border-radius: 1vw;
+  border: 0.125rem solid blue;
+  background-color: transparent;
+  color: black;
+  font-family: 'HarryP', cursive, Arial, sans-serif;
+  width: 200px; /* ancho fijo más pequeño */
+  max-width: 80vw; /* para que en móviles no se salga */
+  padding: 8px 12px;
+  font-size: 1.2rem;
+  
+  
+  box-sizing: border-box;
+}
+
+.password-input:focus {
+  outline: none;
+  border-color: #0b0ffa;
+}
+
+.menu-btn {
+  background: linear-gradient(135deg, #2c2cf0, #7a7afc);
+  color: #fff;
+  font-size: clamp(0.9rem, 2vw, 1.2rem); /* escala con pantalla */
+  padding: clamp(6px, 1vw, 12px) clamp(10px, 2vw, 18px); /* autoajustable */
+  cursor: pointer;
+  border-radius: 0.75rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  width: fit-content;
+  max-width: 100%;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  user-select: none;
+}
+
+.menu-btn:hover {
+  background: linear-gradient(135deg, #1a1ad6, #6464fa);
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
+}
+
+/* Diseño flexible y consistente en todos los tamaños de pantalla, sin distorsión */
+
+
+
+/* No se han agregado consultas de medios. El diseño es consistente y flexible en todos los tamaños de pantalla */
+
+
+/* Se eliminó el bloque de consulta de medios para max-width: 768px para mantener la misma estética y diseño en todos los tamaños de pantalla */
+
+
+/* Responsividad para pantalla pequeña */
+@media (max-width: 400px) {
+  html, body {
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .main-container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .header-container {
+    height: clamp(10vh, 20vh, 25vh) !important;
+    min-height: 80px !important;
+    background-size: cover !important;
+  }
+
+  .left-container,
+  .right-container {
+    width: 100% !important;
+    padding: 5px !important;
+    height: auto !important;
+    border-radius: 0 !important;
+  }
+
+  .top-right img,
+  .top-right video {
+    width: 7vw;
+    height: 7vw;
+    max-width: 60px;
+    max-height: 60px;
+    object-fit: contain;  /* muestra toda la imagen/video sin recortes */
+    border-radius: 0.5rem;
+  }
+
+  .bottom-right {
+    height: 250px;
+    padding: 5px;
+  }
+
+  .magic-btn {
+    font-size: 1.2rem;
+    padding: 10px 20px;
+  }
+
+  .start-btn {
+    font-size: 1rem;
+    padding: 8px 12px;
+    bottom: 10px;
+    right: 10px;
+  }
+
+  .audio-icon {
+    font-size: 7vw;
+  }
+
+  .dropdown-content a {
+    font-size: 1rem;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .password-input {
+    font-size: 1.2rem;
+    padding: 0.75rem;
+  }
+}
+
+.arrow-btn {
+  display: none !important;
+}
+
+.top-right::-webkit-scrollbar {
+  height: 6px; /* reduce la altura */
+}
+
+.top-right::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.top-right::-webkit-scrollbar-thumb {
+  background-color: rgba(6, 62, 247, 0.3);
+  border-radius: 3px;
+}
+
+top-right {
+  scrollbar-width: thin;        /* Firefox */
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}
+
+#typewriter {
+  font-family: 'HarryP', cursive;
+  font-size: clamp(1.5rem, 3vw, 3.5rem);
+  width: 70%;
+  height: 95%;
+  margin: 0 auto;
+  overflow-y: auto;
+  padding: 20px;
+  border-radius: 10px;
+  color: black;
+  line-height: 1.3;
+  white-space: pre-wrap;
+}

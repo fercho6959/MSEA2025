@@ -1,43 +1,106 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Invocando...</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
-        /* Cargar la fuente HarryP desde la carpeta fonts */
         @font-face {
             font-family: 'HarryP';
             src: url('HARRYP__.TTF') format('truetype');
         }
 
-        /* Estilo general del body (fondo GIF y detalles tipo Harry Potter) */
-        body {
+        html, body {
             margin: 0;
             padding: 0;
-            height: 100vh; /* Asegura que el cuerpo ocupe toda la altura de la pantalla */
-            width: 100vw; /* Asegura que el cuerpo ocupe todo el ancho de la pantalla */
+            height: 100%;
+            width: 100%;
+            overflow-y: auto; /* permitir scroll si contenido es mayor */
+            font-family: Arial, sans-serif;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        body {
             display: flex;
             justify-content: center;
             align-items: center;
-            color: white;
-            font-family: 'Arial', sans-serif;
-            overflow: hidden;
-            position: relative;
-            background: #003366; /* Fondo azul profundo inicial */
-            background-image: url('1.gif'); /* Fondo inicial (GIF) */
-            background-size: cover;
+            background-color: #003366;
+            background-image: url('1.gif');
+            background-size: 100% 100%; /* forzar distorsión para mostrar imagen completa */
             background-position: center center;
             background-repeat: no-repeat;
-            transition: background-image 1s ease-in-out; /* Transición suave entre fondos */
+            color: white;
+            position: relative;
+            min-height: 100vh;
         }
 
-        /* Efectos de partículas mágicas */
+        /* Modo oscuro automático */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #000;
+                background-image: url('1.gif');
+                color: #ccc;
+            }
+            h1, h2 {
+                color: #eee;
+                text-shadow:
+                    0 0 20px rgb(248, 246, 246),
+                    0 0 40px rgba(255, 223, 0, 0.8);
+            }
+        }
+
+        /* Texto y contenedor principal */
+        #gifLoader {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            z-index: 2;
+            text-align: center;
+            max-width: 1200px;
+        }
+
+        h1 {
+            font-size: 8rem;
+            font-family: 'HarryP', sans-serif;
+            color: #0718af;
+            margin: 0 0 10px 0;
+            text-shadow:
+                0 0 20px rgb(248, 246, 246),
+                0 0 20px rgb(248, 246, 246),
+                0 0 20px rgb(248, 246, 246),
+                0 0 50px rgba(0, 0, 0, 0.3);
+            animation: flicker 1.5s infinite alternate;
+            word-break: break-word;
+        }
+
+        h2 {
+            font-size: 4rem;
+            font-family: 'HarryP', sans-serif;
+            color: #10069c;
+            margin: 5px 0 0 0;
+            text-shadow:
+                0 0 20px rgb(248, 246, 246),
+                0 0 20px rgb(248, 246, 246),
+                0 0 40px rgba(0, 0, 0, 0.4);
+            animation: flicker 1.5s infinite alternate;
+            word-break: break-word;
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        /* Partículas mágicas */
         .particles span {
             position: absolute;
             width: 5px;
             height: 5px;
-            background-color: rgba(255, 223, 0, 0.8); /* Partículas doradas */
+            background-color: rgba(255, 223, 0, 0.8);
             border-radius: 50%;
             animation: particleAnimation 4s infinite;
         }
@@ -57,70 +120,15 @@
             }
         }
 
-        /* Contenedor principal para las letras */
-        #gifLoader {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-end; /* Alineamos al final de la pantalla */
-            position: absolute;
-            width: 100%;
-            bottom: 0; /* Aseguramos que se quede en la parte inferior */
-            padding-bottom: 30px; /* Añadimos un pequeño margen desde el borde */
-            z-index: 2;
-            text-align: center;
-        }
-
-        /* Estilo para las letras */
-        h1 {
-            font-size: 8rem; /* Texto muy grande */
-            font-family: 'HarryP', sans-serif; /* Fuente Harry Potter */
-            color: #0718af; /* Color azul oscuro */
-            margin-bottom: 10px;
-            text-shadow: 
-                0 0 20px rgb(248, 246, 246), 
-                0 0 20px rgb(248, 246, 246), 
-                0 0 20px rgb(248, 246, 246),  
-                0 0 50px rgba(0, 0, 0, 0.3); /* Sombra 3D */
-            transform: rotate(0deg);
-            animation: flicker 1.5s infinite alternate; /* Efecto de parpadeo */
-        }
-
-        /* Subtítulo con fuente Harry Potter */
-        h2 {
-            font-size: 4rem; /* Subtítulo más grande */
-            font-family: 'HarryP', sans-serif;
-            color: #10069c; /* Azul oscuro */
-            margin-top: 5px;
-            text-shadow: 
-                0 0 20px rgb(248, 246, 246), 
-                0 0 20px rgb(248, 246, 246), 
-                0 0 40px rgba(0, 0, 0, 0.4); /* Sombra 3D */
-            animation: flicker 1.5s infinite alternate;
-        }
-
-        /* Animación de parpadeo del texto */
-        @keyframes flicker {
-            0% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.6;
-            }
-            100% {
-                opacity: 1;
-            }
-        }
-
-        /* Partículas flotantes */
         .particles {
             position: absolute;
             width: 100%;
             height: 100%;
             z-index: 1;
+            pointer-events: none;
         }
 
-        /* Decoraciones mágicas tipo Harry Potter */
+        /* Decoraciones mágicas */
         .harry-potter-decoration {
             position: absolute;
             z-index: 3;
@@ -130,8 +138,13 @@
         .wand {
             top: 20%;
             left: 10%;
-            transform: rotate(-30deg);
+            transform-origin: center;
             animation: wand-magic 5s infinite alternate;
+            width: 80px;
+            height: 80px;
+            background-image: url('varita.png'); /* Pon la URL correcta de la varita */
+            background-size: contain;
+            background-repeat: no-repeat;
         }
 
         .shield {
@@ -139,12 +152,11 @@
             right: 15%;
             width: 150px;
             height: 150px;
-            background-image: url('escudo-hogwarts.png'); /* Añadir imagen del escudo de Hogwarts */
+            background-image: url('escudo-hogwarts.png');
             background-size: cover;
             background-position: center;
         }
 
-        /* Animación varita mágica */
         @keyframes wand-magic {
             0% {
                 transform: rotate(-30deg) translateY(0);
@@ -154,34 +166,45 @@
             }
         }
 
-        /* Ajustes para pantallas más pequeñas (como móviles) */
+        /* Responsive */
         @media (max-width: 768px) {
             h1 {
-                font-size: 5rem; /* Ajustar tamaño de fuente para pantallas pequeñas */
+                font-size: 5rem;
             }
-
             h2 {
-                font-size: 2.5rem; /* Ajustar tamaño de fuente para pantallas pequeñas */
+                font-size: 2.5rem;
+            }
+            .wand {
+                width: 50px;
+                height: 50px;
+                top: 25%;
+                left: 5%;
+            }
+            .shield {
+                width: 100px;
+                height: 100px;
+                top: 40%;
+                right: 10%;
             }
         }
     </style>
 </head>
 <body>
     <div id="gifLoader">
-        <div class="text-container">
-            <h1>Ingresaste a un mundo mágico</h1> <!-- Texto con fuente HarryP -->
-            <h2>Espero te guste...</h2> <!-- Subtítulo -->
+        <div class="text-container" role="main" aria-label="Mensaje mágico">
+            <h1>Ingresaste a un mundo mágico</h1>
+            <h2>Espero te guste...</h2>
         </div>
 
-        <!-- Elementos decorativos tipo Harry Potter -->
-        <div class="harry-potter-decoration wand"></div> <!-- Varita mágica -->
-        <div class="harry-potter-decoration shield"></div> <!-- Escudo de Hogwarts -->
+        <!-- Elementos decorativos -->
+        <div class="harry-potter-decoration wand" aria-hidden="true"></div>
+        <div class="harry-potter-decoration shield" aria-hidden="true"></div>
 
-        <div class="particles" id="particlesContainer"></div> <!-- Partículas mágicas -->
+        <div class="particles" id="particlesContainer" aria-hidden="true"></div>
     </div>
 
     <script>
-        // Generar partículas mágicas aleatorias
+        // Generar partículas mágicas
         const particlesContainer = document.getElementById("particlesContainer");
         for (let i = 0; i < 60; i++) {
             const particle = document.createElement("span");
@@ -191,17 +214,19 @@
             particlesContainer.appendChild(particle);
         }
 
-        // Cambiar el fondo después de 2.5 segundos para mostrar la imagen estática
+        // Cambiar fondo tras 2.5 segs
         setTimeout(() => {
-            document.body.style.backgroundImage = "url('6.jpg')"; // Cambia la URL de la imagen estática
-        }, 2500); // 2.5 segundos
+            document.body.style.backgroundImage = "url('6.jpg')";
+            document.body.style.backgroundSize = "100% 100%"; // asegurar distorsión al cambiar fondo también
+        }, 2500);
 
-        // Redirigir después de 5 segundos (2.5 segundos de GIF + 2.5 segundos de imagen estática)
+        // Redirigir después de 5 segs
         setTimeout(() => {
-            window.location.href = "tu_sitio.html"; // Cambia la URL de destino
-        }, 5000); // 5 segundos en total
+            window.location.href = "tu_sitio.html";
+        }, 5000);
     </script>
 </body>
 </html>
+
 
 
